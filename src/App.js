@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import MainPage from './pages/MainPage.js';
+import MovieDetailPage from './pages/MovieDetailPage.js';
+import SearchPage from './pages/SearchPage.js';
+import LoginPage from './pages/LoginPage.js';
+import RegisterPage from './pages/RegisterPage.js';
+import ProfilePage from './pages/ProfilePage.js';
+import authReducer from './reducers/auth-reducer.js';
+import commentsReducer from './reducers/comments-reducer.js';
+import usersReducer from './reducers/users-reducer.js';
 
 function App() {
+  const store = configureStore({
+    reducer: {
+      authData: authReducer,
+      commentsData: commentsReducer,
+      usersData: usersReducer,
+    },
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div>
+        <Router>
+          <Routes>
+            <Route path='/' element={<MainPage />} />
+            <Route path='/details/:id' element={<MovieDetailPage />} />
+            <Route path='/search/*' element={<SearchPage />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/register' element={<RegisterPage />} />
+            <Route path='/profile' element={<ProfilePage />} />
+          </Routes>
+        </Router>
+      </div>
+    </Provider>
   );
 }
 

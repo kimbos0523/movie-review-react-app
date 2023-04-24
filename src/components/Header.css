@@ -1,0 +1,154 @@
+/********** Header **********/
+.header {
+  margin: 0 auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  background-color: white;
+  text-align: center;
+  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+  /* transition: background-color 200ms ease 0s; */
+  z-index: 10;
+}
+
+.header-nav {
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.header-menus {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header-menu {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  flex-shrink: 0;
+}
+
+.header-menu:not(:first-child) {
+  margin: 0 0 0 24px;
+}
+
+/********** Search **********/
+.header-search-menu {
+  position: relative;
+  display: flex;
+  margin: 0 0 0 auto;
+  width: 300px;
+  height: 60px;
+  align-items: center;
+  flex-shrink: 1;
+  transition: all 0.5s ease 0s;
+}
+
+.header-search-container {
+  position: relative;
+}
+
+.header-search-label {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 38px;
+  border-radius: 2px;
+  padding: 7px 8px;
+  background: rgb(245, 245, 247);
+}
+
+.header-search-input {
+  background: transparent;
+  font-size: 14px;
+  font-weight: 400;
+  width: 100%;
+  padding: 0 0 0 8px;
+  border: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  caret-color: rgb(53, 53, 53);
+  line-height: 23px;
+}
+
+/********** Search Result **********/
+.header-result-container {
+  top: 60px;
+  left: 0;
+  z-index: 999;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+  max-height: 480px;
+}
+
+.header-result-list {
+  list-style: none;
+}
+
+.header-result-list-item {
+  padding: 4px 6px;
+  box-sizing: border-box;
+  color: #222;
+  font-size: 16px;
+  width: 100%;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/********** Logo **********/
+.header-logo {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/********** Button **********/
+.header-btn-login {
+  background: transparent;
+  color: rgb(116, 116, 123);
+  font-size: 14px;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  margin: 15px 0;
+}
+
+.header-btn-signup {
+  border-radius: 6px;
+  font-weight: 500;
+  box-sizing: border-box;
+  min-width: 72px;
+  height: 32px;
+  background: transparent;
+  color: rgb(53, 53, 53);
+  font-size: 14px;
+  border: 1px solid rgba(116, 116, 123, 0.5);
+  cursor: pointer;
+  margin: 15px 0;
+}
+
+.header-menu-btn {
+  font-size: 15px;
+  color: rgb(126, 126, 126);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.header-menu-btn:active,
+.header-menu-btn:hover {
+  color: rgb(53, 53, 53);
+}
+
+.margin-left-auto {
+  margin-left: auto !important;
+}
