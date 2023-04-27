@@ -16,7 +16,6 @@ export const createUser = async (user) => {
 
 export const findUserByUserId = async (uid) => {
   const response = await axios.get(`${USERS_URL}/${uid}`);
-  console.log(response);
   const user = response.data;
   return user;
 };

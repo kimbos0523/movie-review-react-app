@@ -4,12 +4,15 @@ import Header from '../components/Header.js';
 import { useSearchMovie } from '../hooks';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 const SearchPage = () => {
   const [criteria, setCriteria] = useState('');
   const [searchParams, setSearchParams] = useSearchParams({});
   const [isSearch, setIsSearch] = useState(false);
   const { data: result } = useSearchMovie(criteria);
+  const { currentUser } = useSelector((state) => state.authData);
+  console.log(currentUser);
 
   const handleCriteria = (event) => {
     setSearchParams({ criteria: event.target.value });

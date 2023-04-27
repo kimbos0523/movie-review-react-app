@@ -13,7 +13,7 @@ const LoginComponent = () => {
   const handleLogin = async () => {
     try {
       dispatch(loginThunk({ username, password }));
-      navigate('/profile');
+      username === 'admin' ? navigate('/admin') : navigate('/profile');
     } catch (e) {
       alert(e);
     }

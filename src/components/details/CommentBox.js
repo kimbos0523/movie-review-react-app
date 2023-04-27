@@ -1,34 +1,41 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
-import { useDetail } from '../../hooks';
+import { Form, Button } from 'react-bootstrap';
 import { createCommentThunk } from '../../services/comments-thunks';
 
-const CommentBox = () => {
+const CommentBox = (props) => {
   const [comment, setComment] = useState('');
-  const { currentUser } = useSelector((state) => state.authData);
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { data } = useDetail(id ?? '');
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   const commentClickHandler = () => {
     const newComment = {
-      commenter: 'kimbos0523',
-      movie: data.data.title,
+      commenter: currentUser.username,
+      movie: id,
       comment: comment,
+      createdAt: Date.now(),
     };
     dispatch(createCommentThunk(newComment));
   };
 
   return (
-    <div className=''>
-      <textarea
-        value={comment}
-        placeholder='Write Your Comment'
-        onChange={(event) => setComment(event.target.value)}
-      />
-      <button onClick={commentClickHandler}>Comment</button>
-    </div>
+    <Form className='w-8/12 mx-auto'>
+      <Form.Group className='w-full '>
+        <Form.Label>{`${currentUser.username} comment:`}</Form.Label>
+        <Form.Control
+          as='textarea'
+          className='mb-3'
+          value={comment}
+          placeholder='Write Your Comment'
+          onChange={(event) => setComment(event.target.value)}
+        />
+        <Button variant='primary' onClick={commentClickHandler}>
+          Comment
+        </Button>
+      </Form.Group>
+    </Form>
   );
 };
 

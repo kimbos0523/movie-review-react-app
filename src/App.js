@@ -8,6 +8,8 @@ import SearchPage from './pages/SearchPage.js';
 import LoginPage from './pages/LoginPage.js';
 import RegisterPage from './pages/RegisterPage.js';
 import ProfilePage from './pages/ProfilePage.js';
+import ProfileOthersPage from './pages/ProfileOthersPage.js';
+import AdminPage from './pages/AdminPage.js';
 import authReducer from './reducers/auth-reducer.js';
 import commentsReducer from './reducers/comments-reducer.js';
 import usersReducer from './reducers/users-reducer.js';
@@ -32,6 +34,8 @@ function App() {
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/profile' element={<ProfilePage />} />
+            <Route path='/profile/:id' element={<ProfileOthersPage />} />
+            <Route path='/admin' element={<AdminPage />} />
           </Routes>
         </Router>
       </div>

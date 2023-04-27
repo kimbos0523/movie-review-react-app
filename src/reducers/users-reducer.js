@@ -19,7 +19,6 @@ const usersSlice = createSlice({
       state.users = payload;
     },
     [findUserByUserIdThunk.fulfilled]: (state, { payload }) => {
-      console.log(payload);
       state.findUser = payload;
     },
     [deleteUserThunk.fulfilled]: (state, { payload }) => {

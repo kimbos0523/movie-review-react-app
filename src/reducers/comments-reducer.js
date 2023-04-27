@@ -28,7 +28,7 @@ const commentsSlice = createSlice({
     },
     [deleteCommentThunk.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.comments = state.tuits.filter((c) => c._id !== payload);
+      state.comments = state.comments.filter((c) => c._id !== payload);
     },
     [createCommentThunk.fulfilled]: (state, { payload }) => {
       state.loading = false;

@@ -8,31 +8,42 @@ import {
   logoutThunk,
   updateUserThunk,
 } from '../services/auth-thunks';
+import { findCommentsThunk } from '../services/comments-thunks';
+import CommentItem from '../components/details/CommentItem';
 
 const ProfilePage = () => {
-  const { currentUser } = useSelector((state) => state.authData);
+  const { currentUser } = useSelector((state) => ({
+    currentUser: state.authData.currentUser,
+  }));
+  const { comments, loading } = useSelector((state) => state.commentsData);
   const [profile, setProfile] = useState(currentUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const profileComments = comments.filter(
+    (comment) => comment.commenter._id === currentUser?._id
+  );
+
+  useEffect(() => {
+    dispatch(findCommentsThunk());
+  }, []);
 
   const save = () => {
     dispatch(updateUserThunk(profile));
   };
 
-  const checkProfile = async () => {
-    const { payload } = await dispatch(profileThunk());
-    setProfile(payload);
-  };
-
   useEffect(() => {
-    checkProfile();
+    (async () => {
+      const { payload } = await dispatch(profileThunk());
+      setProfile(payload);
+    })();
   }, []);
 
-  // useEffect(() => {
-  //   const { payload } = dispatch(profileThunk());
-  //   setProfile(payload);
-  // }, [dispatch, setProfile]);
+  useEffect(() => {
+    dispatch(findCommentsThunk());
+  }, [setProfile]);
 
+  console.log(comments);
   return (
     <>
       <Header />
@@ -73,8 +84,7 @@ const ProfilePage = () => {
                   }}
                 />
               </div>
-
-              <div>
+              <div className='mb-3'>
                 <label className='me-3'>Email: </label>
                 <input
                   type='text'
@@ -83,6 +93,20 @@ const ProfilePage = () => {
                     const newProfile = {
                       ...profile,
                       email: event.target.value,
+                    };
+                    setProfile(newProfile);
+                  }}
+                />
+              </div>
+              <div className='mb-3'>
+                <label className='me-3'>Password: </label>
+                <input
+                  type='text'
+                  value={profile.password}
+                  onChange={(event) => {
+                    const newProfile = {
+                      ...profile,
+                      password: event.target.value,
                     };
                     setProfile(newProfile);
                   }}
@@ -108,6 +132,26 @@ const ProfilePage = () => {
               </Button>
             </Col>
           </Row>
+          {profileComments && (
+            <ul className='mt-2 w-9/12 mx-auto'>
+              {loading && <li className='list-group-item'>Loading...</li>}
+              {profileComments.map(
+                (comment) => (
+                  console.log(comment.movie),
+                  console.log(typeof comment.movie),
+                  (
+                    <CommentItem
+                      key={comments._id}
+                      commenter={comment.commenter}
+                      movie={comment.movie}
+                      comment={comment.comment}
+                      createdAt={comment.createdAt}
+                    />
+                  )
+                )
+              )}
+            </ul>
+          )}
         </Container>
       </main>
     </>
