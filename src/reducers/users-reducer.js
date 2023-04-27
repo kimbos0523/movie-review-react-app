@@ -5,6 +5,7 @@ import {
   deleteUserThunk,
   findUsersThunk,
   findUserByUserIdThunk,
+  findUserByUserNameThunk,
 } from '../services/users-thunks';
 
 const initialState = {
@@ -20,6 +21,11 @@ const usersSlice = createSlice({
     },
     [findUserByUserIdThunk.fulfilled]: (state, { payload }) => {
       state.findUser = payload;
+    },
+    [findUserByUserNameThunk.fulfilled]: (state, { payload }) => {
+      state.users = payload;
+      console.log(payload);
+      console.log(state.users);
     },
     [deleteUserThunk.fulfilled]: (state, { payload }) => {
       state.users = state.users.filter((u) => u._id !== payload);

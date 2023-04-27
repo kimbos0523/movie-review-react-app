@@ -20,6 +20,14 @@ export const findUserByUserId = async (uid) => {
   return user;
 };
 
+export const findUserByUserName = async (username) => {
+  const response = await axios.get(`${USERS_URL}/username/${username}`);
+  console.log('findUserByUserName');
+  const users = response.data;
+  console.log(users);
+  return users;
+};
+
 export const deleteUser = async (uid) => {
   const response = await axios.delete(`${USERS_URL}/${uid}`);
   return response.data;

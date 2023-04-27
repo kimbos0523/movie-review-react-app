@@ -43,7 +43,6 @@ const ProfilePage = () => {
     dispatch(findCommentsThunk());
   }, [setProfile]);
 
-  console.log(comments);
   return (
     <>
       <Header />
@@ -135,21 +134,15 @@ const ProfilePage = () => {
           {profileComments && (
             <ul className='mt-2 w-9/12 mx-auto'>
               {loading && <li className='list-group-item'>Loading...</li>}
-              {profileComments.map(
-                (comment) => (
-                  console.log(comment.movie),
-                  console.log(typeof comment.movie),
-                  (
-                    <CommentItem
-                      key={comments._id}
-                      commenter={comment.commenter}
-                      movie={comment.movie}
-                      comment={comment.comment}
-                      createdAt={comment.createdAt}
-                    />
-                  )
-                )
-              )}
+              {profileComments.map((comment) => (
+                <CommentItem
+                  key={comments._id}
+                  commenter={comment.commenter}
+                  movie={comment.movie}
+                  comment={comment.comment}
+                  createdAt={comment.createdAt}
+                />
+              ))}
             </ul>
           )}
         </Container>

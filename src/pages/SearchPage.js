@@ -4,7 +4,9 @@ import Header from '../components/Header.js';
 import { useSearchMovie } from '../hooks';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { findUserByUserNameThunk } from '../services/users-thunks.js';
+import UserList from '../components/UserList.js';
 
 const SearchPage = () => {
   const [criteria, setCriteria] = useState('');
@@ -12,7 +14,8 @@ const SearchPage = () => {
   const [isSearch, setIsSearch] = useState(false);
   const { data: result } = useSearchMovie(criteria);
   const { currentUser } = useSelector((state) => state.authData);
-  console.log(currentUser);
+  const { users } = useSelector((state) => state.usersData);
+  const dispatch = useDispatch();
 
   const handleCriteria = (event) => {
     setSearchParams({ criteria: event.target.value });
@@ -21,7 +24,8 @@ const SearchPage = () => {
 
   const handleSearchBtn = (event) => {
     event.preventDefault();
-
+    dispatch(findUserByUserNameThunk(criteria));
+    console.log(users);
     setIsSearch(true);
   };
 
@@ -79,6 +83,27 @@ const SearchPage = () => {
                     </Container>
                   </ul>
                 </a>
+              ))
+            : null}
+          {isSearch && (
+            <h1 className='text-black font-bold text-3xl text-center'>
+              User Research Result
+            </h1>
+          )}
+          {isSearch
+            ? users.map((user) => (
+                <div className='mb-3'>
+                  <div className='Container w-8/12 mx-auto'>
+                    <div className='mb-2'>
+                      <a
+                        className='no-underline text-black text-2xl text-center mx-auto w-full'
+                        href={`profile/${user._id}`}
+                      >
+                        {user.username}
+                      </a>
+                    </div>
+                  </div>
+                </div>
               ))
             : null}
         </div>

@@ -14,6 +14,7 @@ const LoginComponent = () => {
     try {
       dispatch(loginThunk({ username, password }));
       username === 'admin' ? navigate('/admin') : navigate('/profile');
+      // navigate('/profile');
     } catch (e) {
       alert(e);
     }

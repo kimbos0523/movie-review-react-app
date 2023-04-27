@@ -102,7 +102,6 @@ const UserList = ({ user }) => {
           <option value='admin'>admin</option>
           <option value='user'>user</option>
           <option value='guest'>guest</option>
-          <option value='moderator'>moderator</option>
         </select>
       </div>
       <Container>
